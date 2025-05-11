@@ -296,7 +296,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
 
   // parse methods in the Api class
   Iterable<Method> _parseMethods(ClassElement element) {
-    List<Method> methods = [];
+    final methods = <Method>[];
     final methodMembers = <MethodElement>[
       ...element.methods,
       ...element.mixins.expand((i) => i.methods),
@@ -320,8 +320,13 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
         methods.add(_generateApiCallMethod(method, instantiatedCallAdapter)!);
       }
       if (callAdapter != null) {
-        methods.add(_generateAdapterMethod(
-            method, instantiatedCallAdapter, resultTypeInString));
+        methods.add(
+          _generateAdapterMethod(
+            method,
+            instantiatedCallAdapter,
+            resultTypeInString,
+          ),
+        );
       }
     }
     return methods;
@@ -548,8 +553,11 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
       _generateParameters(m, (it) => it.isRequiredPositional),
     );
     mm.optionalParameters.addAll(
-      _generateParameters(m, (it) => it.isOptional || it.isRequiredNamed,
-          optional: true),
+      _generateParameters(
+        m,
+        (it) => it.isOptional || it.isRequiredNamed,
+        optional: true,
+      ),
     );
   }
 
@@ -578,12 +586,18 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
     }
 
     final httpMethod = _getMethodAnnotation(m);
-    if (httpMethod == null) return null;
+    if (httpMethod == null) {
+      return null;
+    }
 
     final returnType = m.returnType;
     return Method((methodBuilder) {
-      _configureMethodMetadata(methodBuilder, m,
-          _displayString(returnType, withNullability: true), false);
+      _configureMethodMetadata(
+        methodBuilder,
+        m,
+        _displayString(returnType, withNullability: true),
+        false,
+      );
       _addParameters(methodBuilder, m);
       _addAnnotations(methodBuilder, returnType, false);
       methodBuilder.body = _generateRequest(m, httpMethod, null);
@@ -591,16 +605,24 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
   }
 
   Method? _generatePrivateApiCallMethod(
-      MethodElement m, InterfaceType? callAdapter) {
+    MethodElement m,
+    InterfaceType? callAdapter,
+  ) {
     final callAdapterOriginalReturnType =
         callAdapter?.superclass?.typeArguments.firstOrNull as InterfaceType?;
 
     final httpMethod = _getMethodAnnotation(m);
-    if (httpMethod == null) return null;
+    if (httpMethod == null) {
+      return null;
+    }
 
     return Method((methodBuilder) {
-      _configureMethodMetadata(methodBuilder, m,
-          _displayString(callAdapterOriginalReturnType), true);
+      _configureMethodMetadata(
+        methodBuilder,
+        m,
+        _displayString(callAdapterOriginalReturnType),
+        true,
+      );
       _addParameters(methodBuilder, m);
       _addAnnotations(methodBuilder, m.returnType, true);
       methodBuilder.body = _generateRequest(m, httpMethod, callAdapter);
@@ -627,13 +649,14 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
     ConstantReader httpMethod,
     InterfaceType? callAdapter,
   ) {
-    String returnAsyncWrapper =
+    var returnAsyncWrapper =
         m.returnType.isDartAsyncFuture ? 'return' : 'yield';
     if (callAdapter != null) {
       final callAdapterOriginalReturnType =
           callAdapter.superclass?.typeArguments.firstOrNull as InterfaceType?;
       returnAsyncWrapper = _isReturnTypeFuture(
-              callAdapterOriginalReturnType?.getDisplayString() ?? '')
+        callAdapterOriginalReturnType?.getDisplayString() ?? '',
+      )
           ? 'return'
           : 'yield';
     }
@@ -756,9 +779,8 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
           ? callAdapter.superclass!.typeArguments.first
           : m.returnType,
     );
-    final isWrappedWithHttpResponseWrapper = wrappedReturnType != null
-        ? _typeChecker(retrofit.HttpResponse).isExactlyType(wrappedReturnType)
-        : false;
+    final isWrappedWithHttpResponseWrapper = wrappedReturnType != null &&
+        _typeChecker(retrofit.HttpResponse).isExactlyType(wrappedReturnType);
 
     final returnType = isWrappedWithHttpResponseWrapper
         ? _getResponseType(wrappedReturnType)
@@ -2171,7 +2193,7 @@ ${bodyName.displayName} == null
                       _typeChecker(BuiltMap).isExactlyType(innerType) ||
                       _typeChecker(List).isExactlyType(innerType) ||
                       _typeChecker(BuiltList).isExactlyType(innerType)))) {
-            String value = '';
+            var value = '';
             if (innerType != null && _isEnum(innerType)) {
               value = 'i.name';
             } else if (_isBasicType(innerType)) {
@@ -2276,7 +2298,8 @@ ${bodyName.displayName} == null
                 else if (_isEnum(p.type))
                   _hasToJson(p.type)
                       ? refer(p.displayName).property('toJson').call(
-                          []).ifNullThen(refer(p.displayName).property('name'))
+                          [],
+                        ).ifNullThen(refer(p.displayName).property('name'))
                       : refer(p.displayName).property('name')
                 else
                   refer(p.displayName).property('toString').call([]),
@@ -2872,7 +2895,9 @@ extension DartObjectX on DartObject? {
   }
 
   ConstantReader? toConstantReader() {
-    if (this == null) return null;
+    if (this == null) {
+      return null;
+    }
     return ConstantReader(this);
   }
 }
