@@ -1,3 +1,7 @@
+## 9.3.0
+
+- Bump min Dart SDK to 3.6 and update dependencies
+
 ## 9.2.0
 
 - Update protobuf version to 4.0.0

@@ -1,4 +1,6 @@
-# Changelog
+## 4.5.0
+
+- Bump min Dart SDK to 3.6 and update dependencies
 
 ## 4.4.2
 
