@@ -20,8 +20,8 @@ dependencies:
   dart_style: ^3.0.1
   dio: ^5.0.0
   protobuf: ^4.0.0
-  source_gen: ^2.0.0
   retrofit: ^4.4.2
+  source_gen: ^2.0.0
 
 dev_dependencies:
   lints: any

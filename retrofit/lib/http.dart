@@ -1,4 +1,5 @@
 // ignore_for_file: constant_identifier_names
+
 import 'package:meta/meta.dart';
 
 /// A holder that includes all http methods which are supported by retrofit.
@@ -29,14 +30,14 @@ enum Parser {
   /// Parse on a separate isolate using `compute` (Flutter only).
   ///
   /// Each model class must define a top-level function, taking the form
-  /// ```
+  /// ```dart
   /// FutureOr<T> deserializeT(Map<String, dynamic> json);
   /// FutureOr<dynamic> serializeTask(T object);
   /// ```
   ///
   /// If you want to handle lists of objects, either as return types or parameters, you should provide List counterparts.
   ///
-  /// ```
+  /// ```dart
   /// FutureOr<List<T>> deserializeTList(Map<String, dynamic> json);
   /// FutureOr<dynamic> serializeTList(List<T> objects);
   /// ```
@@ -44,7 +45,7 @@ enum Parser {
   /// E.g.
   /// ----
   /// _In file user.dart_
-  /// ```
+  /// ```dart
   /// User deserializeUser(Map<String, dynamic> json) => User.fromJson(json);
   /// List<User> deserializeUserList(List<Map<String, dynamic>> json) =>
   ///     json.map((e) => User.fromJson(e)).toList();
@@ -64,11 +65,7 @@ enum Parser {
 /// Define an API.
 @immutable
 class RestApi {
-  const RestApi({
-    this.baseUrl,
-    this.parser = Parser.JsonSerializable,
-    this.callAdapter,
-  });
+  const RestApi({this.baseUrl, this.parser = Parser.JsonSerializable, this.callAdapter});
 
   /// Set the API base URL.
   ///
@@ -86,8 +83,8 @@ class RestApi {
   /// * Endpoint: `foo/bar/`
   /// * Result: `http://example.com/foo/bar/`
   ///
-  /// When you specify a relative [baseUrl]. The [Dio] instance passed to the constructor should have it defined.
-  /// When you don't specify the [baseUrl]. The [Dio] instance passed to the constructor should have it defined.
+  /// When you specify a relative [baseUrl]. The `Dio` instance passed to the constructor should have it defined.
+  /// When you don't specify the [baseUrl]. The `Dio` instance passed to the constructor should have it defined.
   /// Otherwise the `path` field of any [HttpMethod] like [POST] should have the full URL.
 
   final String? baseUrl;
@@ -99,10 +96,7 @@ class RestApi {
 
 @immutable
 class Method {
-  const Method(
-    this.method,
-    this.path,
-  );
+  const Method(this.method, this.path);
 
   /// HTTP request method which can be found in [HttpMethod].
   final String method;
@@ -116,7 +110,7 @@ class Method {
 
 /// Make a `GET` request
 ///
-/// ```
+/// ```dart
 /// @GET("ip")
 /// Future<String> ip(@Query('query1') String query)
 /// ```
@@ -200,7 +194,7 @@ class NoBody {
 
 /// Named pair for a form request.
 ///
-/// ```
+/// ```dart
 /// @POST("/post")
 /// Future<String> example(
 ///   @Field() int foo,
@@ -230,7 +224,7 @@ class Path {
 ///
 /// Simple Example:
 ///
-///```
+///```dart
 /// @GET("/get")
 /// Future<String> foo(@Query('bar') String query)
 ///```
@@ -287,7 +281,7 @@ class MultiPart extends _MimeType {
 
 /// Denotes a single part of a multi-part request.
 /// Part parameters may not be null.
-/// ```
+/// ```dart
 /// @POST("/post")
 /// @MultiPart()
 /// Future<String> example(
@@ -299,12 +293,7 @@ class MultiPart extends _MimeType {
 /// ```
 @immutable
 class Part {
-  const Part({
-    @Deprecated('future release') this.value,
-    this.name,
-    this.fileName,
-    this.contentType,
-  });
+  const Part({@Deprecated('future release') this.value, this.name, this.fileName, this.contentType});
 
   @Deprecated('future release')
   final String? value;
@@ -342,7 +331,7 @@ class CacheControl {
 }
 
 /// Prevents `null` values from being converted to `absent` values in generated code for body.
-/// ```
+/// ```dart
 /// @PreventNullToAbsent()
 /// @POST("/post")
 /// Future<String> example(@Field('foo') String? foo);

@@ -1247,7 +1247,6 @@ You should create a new class to encapsulate the response.
       try {
         final annotation = ConstantReader(constDartObj);
         final obj = annotation.peek('genericArgumentFactories');
-        // ignore: invalid_null_aware_operator
         genericArgumentFactories = obj?.boolValue ?? false;
       } on Object {
         // nothing

@@ -33,7 +33,7 @@ class Extra {
 /// Extra data that will be passed to dio's request, response, transformer and interceptors.
 /// Simple Example:
 ///
-///```
+///```dart
 /// @GET("/get")
 /// Future<String> foo(@Extras() Map<String, dynamic> extras)
 ///```
@@ -64,11 +64,12 @@ class DioResponseType {
   const DioResponseType(this.responseType);
 }
 
+@immutable
 class HttpResponse<T> {
   final T data;
-  final Response response;
+  final Response<dynamic> response;
 
-  HttpResponse(this.data, this.response);
+  const HttpResponse(this.data, this.response);
 }
 
 @immutable
