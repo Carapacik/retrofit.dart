@@ -26,3 +26,15 @@ const Result$json = {
 /// Descriptor for `Result`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List resultDescriptor =
     $convert.base64Decode('CgZSZXN1bHQSFAoFdmFsdWUYASABKAlSBXZhbHVl');
+
+@$core.Deprecated('Use paramsDescriptor instead')
+const Params$json = {
+  '1': 'Params',
+  '2': [
+    {'1': 'key', '3': 1, '4': 1, '5': 9, '10': 'key'},
+  ],
+};
+
+/// Descriptor for `Params`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List paramsDescriptor =
+    $convert.base64Decode('CgZQYXJhbXMSEAoDa2V5GAEgASgJUgNrZXk=');

@@ -11,25 +11,19 @@ void main() {
     });
 
     test('formatOutput is true when explicitly set to true', () {
-      final builderOptions = BuilderOptions({
-        'format_output': 'true',
-      });
+      final builderOptions = BuilderOptions({'format_output': 'true'});
       final options = RetrofitOptions.fromOptions(builderOptions);
       expect(options.formatOutput, isTrue);
     });
 
     test('formatOutput is false when explicitly set to false', () {
-      final builderOptions = BuilderOptions({
-        'format_output': 'false',
-      });
+      final builderOptions = BuilderOptions({'format_output': 'false'});
       final options = RetrofitOptions.fromOptions(builderOptions);
       expect(options.formatOutput, isFalse);
     });
 
     test('formatOutput handles non-boolean string values', () {
-      final builderOptions = BuilderOptions({
-        'format_output': 'False',
-      });
+      final builderOptions = BuilderOptions({'format_output': 'False'});
       final options = RetrofitOptions.fromOptions(builderOptions);
       // Should be false because it's not exactly 'true'
       expect(options.formatOutput, isFalse);
@@ -45,18 +39,14 @@ void main() {
     });
 
     test('creates builder with format_output set to false', () {
-      final builderOptions = BuilderOptions({
-        'format_output': 'false',
-      });
+      final builderOptions = BuilderOptions({'format_output': 'false'});
       final builder = generatorFactoryBuilder(builderOptions);
       expect(builder, isNotNull);
       expect(builder, isA<SharedPartBuilder>());
     });
 
     test('creates builder with format_output set to true', () {
-      final builderOptions = BuilderOptions({
-        'format_output': 'true',
-      });
+      final builderOptions = BuilderOptions({'format_output': 'true'});
       final builder = generatorFactoryBuilder(builderOptions);
       expect(builder, isNotNull);
       expect(builder, isA<SharedPartBuilder>());

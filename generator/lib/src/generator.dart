@@ -11,7 +11,9 @@ import 'package:built_collection/built_collection.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:dio/dio.dart';
-import 'package:protobuf/protobuf.dart' as protobuf;
+import 'package:protobuf/protobuf.dart'
+    as protobuf
+    show GeneratedMessage, ProtobufEnum;
 import 'package:retrofit/retrofit.dart' as retrofit;
 import 'package:source_gen/source_gen.dart';
 
@@ -25,7 +27,9 @@ Builder generatorFactoryBuilder(BuilderOptions options) {
     [RetrofitGenerator(retrofitOptions)],
     'retrofit',
     formatOutput: (code, version) {
-      final formattedCode = DartFormatter(languageVersion: version).format(code);
+      final formattedCode = DartFormatter(
+        languageVersion: version,
+      ).format(code);
       // Only add format suppressing comments if format_output is true (default)
       if (retrofitOptions.formatOutput ?? true) {
         return '// dart format off\n\n$formattedCode\n// dart format on\n';

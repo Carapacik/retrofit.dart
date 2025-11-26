@@ -4,7 +4,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 import 'package:source_gen_test/annotations.dart';
 
-import 'query.pb.dart';
+import 'result.pb.dart';
 
 class Resource<T> {}
 

@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show compute;
 import 'package:retrofit/retrofit.dart';
-import 'package:retrofit_example/proto/params.pbserver.dart';
-import 'package:retrofit_example/proto/result.pbserver.dart';
+import 'package:retrofit_example/proto/params.pb.dart';
+import 'package:retrofit_example/proto/result.pb.dart';
 
 part 'example.g.dart';
 
