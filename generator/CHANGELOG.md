@@ -1,3 +1,7 @@
+## 10.2.3
+
+- Allow `analyzer` 10.0.0
+
 ## 10.2.1
 
 - Support analyzer `'>=8.0.0 <10.0.0'` and update deprecated methods
